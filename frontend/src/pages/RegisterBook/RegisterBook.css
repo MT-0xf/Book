@@ -1,0 +1,68 @@
+.form {
+  margin: 15px auto 15px;
+  width: 750px;
+}
+
+.head {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.ul-style {
+  list-style: none;
+  padding: 0;
+}
+
+.li-style {
+  margin: 15px 30px 15px 30px;
+}
+
+.text-area {
+  padding: 0px 32px 0px 0px;
+}
+
+input[type=text] {
+  border-radius: 5px;
+  font-size: 16px;
+  padding: 10px 5px 10px 5px;
+  border: 1px solid #ccc;
+  width: 100%;
+}
+
+.button-area {
+  padding: 0px 23px 0px 0px;
+}
+
+.btn-green {
+  color: #fff;
+  background-color: green;
+  font-size: 25px;
+  border: none;
+  width: 100%;
+}
+.btn-green:hover {
+  color: #fff;
+  background: green;
+}
+
+.btn-radius {
+   border-radius: 1vh;
+}
+
+@media screen and (max-width: 750px) {
+	.form {
+    width: 100%;
+  }
+
+  .head {
+    text-align: center;
+  }
+
+  .ul-style {
+    padding-left: 7%;
+  }
+
+  input[type=text] {
+    padding: 3px 0px 3px 0px;
+  }
+}

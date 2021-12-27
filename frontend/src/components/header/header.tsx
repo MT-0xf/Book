@@ -2,9 +2,14 @@ import './header.css';
 
 function Header() {
   return(
-    <div className="bg">
-      <span>新規登録</span>
-      <span>ログイン</span>
+    <div className='bg'>
+      <div className='title'>
+        読書記録
+      </div>
+      <div className='panel'>
+        <span className='register'>新規登録</span>
+        <span className='login'>ログイン</span>
+      </div>
     </div>
   )
 }

@@ -1,3 +1,31 @@
-.bg {
-  background-color: blue;
+.search_container{
+  box-sizing: border-box;
+  display: block;
+  text-align: center;
+  margin-top: 10%;
+}
+.search_container input[type="text"]{
+  border: 1px solid #999;
+  padding: 3px 5px;
+  border-radius: 20px;
+  height: 2.0em;
+  font-size: 16px;
+  width: 245px;
+  overflow: hidden;
+}
+
+
+.search-btn-green {
+  color: #fff;
+  background-color: green;
+  font-size: 25px;
+  border: none;
+}
+.search-btn-green:hover {
+  color: #fff;
+  background: green;
+}
+
+.search-btn-radius {
+   border-radius: 100vh;
 }

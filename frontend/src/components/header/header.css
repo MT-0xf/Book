@@ -1,3 +1,25 @@
 .bg {
   background-color: green;
+  color: white;
+  padding-top: 18px;
+  height: 36px;
+  width: auto;
+}
+
+.title {
+  float: left;
+  padding-left: 5%;
+}
+
+.panel {
+  float: right;
+  padding-right: 5%;
+}
+
+.register {
+  margin: 18px 10px;
+}
+
+.login {
+  margin: 18px 10px;
 }
