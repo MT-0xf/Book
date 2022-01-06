@@ -24,6 +24,12 @@ function Top() {
     navigate(path);
   }
 
+  axios.get('http://localhost:3000/books').then(
+    (response: any) => {
+      console.log(response);
+    }
+  );
+
   return (
     <div>
       <Header />
