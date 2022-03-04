@@ -6,6 +6,7 @@ import axios from 'axios';
 function RegisterBook() {
   const [title, setTitle] = useState("");
   const [file, setFile] = useState("");
+  const [fileName, setFileName] = useState("");
   const [authorName, setAuthorName] = useState("");
   const [pageNumber, setPageNumber] = useState(0);
 
@@ -18,6 +19,7 @@ function RegisterBook() {
 
   const doChangeFile = (e: any) => {
     var image = e.target.files[0];
+    setFileName(image.fileName);
     var fileReader = new FileReader();
     fileReader.readAsDataURL(image);
     
@@ -37,19 +39,29 @@ function RegisterBook() {
   }
 
   const submit = () => {
+    var Base64 = {
+      encode: function(str: string) {
+          return btoa(unescape(encodeURIComponent(str)));
+      },
+      decode: function(str: string) {
+          return decodeURIComponent(escape(atob(str)));
+      }
+    };
+
     let req = {
-      title: 'test002',
-      file: '/test',
-      author_name: 'auth002',
-      page_number: 120
+      title: title,
+      file: Base64.encode(file),
+      author_name: authorName,
+      page_number: pageNumber
     }
 
     axios.post('http://localhost:3000/books/regist', req);
 
-    // setTitle("");
-    // setFile("");
-    // setAuthorName("");
-    // setPageNumber(0);
+    setTitle("");
+    setFile("");
+    setFileName("");
+    setAuthorName("");
+    setPageNumber(0);
   }
 
   return(
@@ -67,7 +79,7 @@ function RegisterBook() {
           <li className="li-style">
             <div>画像</div>
             <div className="text-area">
-              <input type="file" accept="image" onChange={doChangeFile}></input>
+              <input type="file" accept="image" value={fileName} onChange={doChangeFile}></input>
             </div>
           </li>
           <li className="li-style">
@@ -82,12 +94,6 @@ function RegisterBook() {
               <input type="number" value={pageNumber} min={0} onChange={doChangePageNumber}></input>
             </div>
           </li>
-          {/* <li className="li-style">
-            <div>ジャンル</div>
-            <div className="text-area">
-              <input type="text"></input>
-            </div>
-          </li> */}
           <li className="li-style">
             <div className="button-area">
               <input type="button" className='btn-green btn-radius' value="登録する" onClick={submit}></input>
