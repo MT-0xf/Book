@@ -1,0 +1,9 @@
+.book-list {
+  padding: 0;
+  margin-top: 30px;
+  display: grid;
+  grid-template-rows: 200px 200px 200px 200px 200px;
+  grid-template-columns: 150px 150px 150px 150px 150px;
+  background-color: aquamarine;
+}
+

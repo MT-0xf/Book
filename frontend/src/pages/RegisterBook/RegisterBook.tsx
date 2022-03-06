@@ -10,9 +10,6 @@ function RegisterBook() {
   const [authorName, setAuthorName] = useState("");
   const [pageNumber, setPageNumber] = useState(0);
 
-  axios.defaults.headers.post['Content-Type'] = 'application/json;charset=utf-8';
-  axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
-
   const doChangeTitle = (e: any) => {
     setTitle(e.target.value);
   }
@@ -55,6 +52,7 @@ function RegisterBook() {
       page_number: pageNumber
     }
 
+    axios.defaults.headers.post['Content-Type'] = 'application/json;charset=utf-8';
     axios.post('http://localhost:3000/books/regist', req);
 
     setTitle("");
