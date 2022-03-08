@@ -33,8 +33,8 @@ router.get('/search', function(req, res, next) {
     } else {
         books.map(book => {
           if (fs.existsSync(book.file)) {
-            let img = fs.readFileSync(book.file);
-            book.file = "data:image/jpeg;base64," + base64.encode(img);  
+            let img = fs.readFileSync(book.file, { encoding: "base64" });
+            book.file = "data:image/jpeg;base64," + img;  
           }
         });
         res.json(books);

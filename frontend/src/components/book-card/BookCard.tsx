@@ -12,8 +12,8 @@ function BookCard(props: any) {
   return (
     <div className="book-card">
       <div><img src={file} height="150px" width="100px" /></div>
-      <div>{title}</div>
-      <div>{authorName}</div>
+      <div className="text">{title}</div>
+      <div className="text">{authorName}</div>
     </div>
   )
 }

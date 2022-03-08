@@ -1,9 +1,33 @@
+.bgColorGray{
+  background-color: gray;
+}
 .book-list {
   padding: 0;
+  height: 750px;
   margin-top: 30px;
   display: grid;
-  grid-template-rows: 200px 200px 200px 200px 200px;
+  grid-template-rows: 220px 220px 220px 220px 220px;
   grid-template-columns: 150px 150px 150px 150px 150px;
-  background-color: aquamarine;
+  background-color: white;
 }
 
+.page {
+  text-align: center;
+  padding: 20px;
+}
+
+.MuiPaginationItem-textPrimary.Mui-selected {
+  background-color: green !important;
+}
+
+@media screen and (max-width: 750px) {
+  .book-list {
+    padding: 0;
+    height: 1000px;
+    margin-top: 30px;
+    display: grid;
+    grid-template-rows: 200px 200px 200px;
+    grid-template-columns: 123px 123px 123px;
+    background-color: white;
+  }
+}

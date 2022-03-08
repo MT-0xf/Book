@@ -51,7 +51,7 @@ function Search() {
         <div className="book-list">
           {list}
         </div>
-        <div style={{textAlign: "center"}}>
+        <div className="page">
           <Pagination 
             count={totalPage}
             color="primary"
