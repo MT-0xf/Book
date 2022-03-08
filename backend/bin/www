@@ -20,6 +20,11 @@ app.set('port', port);
  */
 
 var server = http.createServer(app);
+const fs = require('fs');
+// const server = require('https').createServer({
+//   key: fs.readFileSync('./bin/privatekey.pem'),
+//   cert: fs.readFileSync('./bin/cert.pem'),
+// }, app)
 
 /**
  * Listen on provided port, on all network interfaces.
