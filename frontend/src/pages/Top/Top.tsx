@@ -35,7 +35,7 @@ function Top() {
       <Header />
       <div>
         <form className="search_container" onSubmit={doSearch}>
-          <input type="text" placeholder="キーワード検索" value={keyword} onChange={doChangeKeyword}></input>
+          <input className="keywordBox" type="text" placeholder="キーワード検索" value={keyword} onChange={doChangeKeyword}></input>
           <input type="submit" value="  検索  " className='search-btn-green search-btn-radius'></input>
         </form>
       </div>

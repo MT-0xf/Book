@@ -37,6 +37,15 @@ input[type=number] {
   width: 100%;
 }
 
+.scenario {
+  border-radius: 5px;
+  font-size: 16px;
+  padding: 10px 5px 10px 5px;
+  border: 1px solid #ccc;
+  width: 100%;
+  resize: none;
+}
+
 .button-area {
   padding: 0px 23px 0px 0px;
 }

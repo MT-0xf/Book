@@ -76,7 +76,8 @@ router.post('/regist', function(req, res, next) {
     title: req.body.title,
     file: filePath,
     author_name: req.body.author_name,
-    page_number: req.body.page_number
+    page_number: req.body.page_number,
+    scenario: req.body.scenario
   }));
 });
 

@@ -9,6 +9,7 @@ function RegisterBook() {
   const [fileName, setFileName] = useState("");
   const [authorName, setAuthorName] = useState("");
   const [pageNumber, setPageNumber] = useState(0);
+  const [scenario, setScenario] = useState("");
 
   const doChangeTitle = (e: any) => {
     setTitle(e.target.value);
@@ -35,6 +36,11 @@ function RegisterBook() {
     setPageNumber(e.target.value);
   }
 
+  const doChangeScenario = (e: any) => {
+    setScenario(e.target.value);
+  }
+
+
   const submit = () => {
     var Base64 = {
       encode: function(str: string) {
@@ -49,7 +55,8 @@ function RegisterBook() {
       title: title,
       file: Base64.encode(file),
       author_name: authorName,
-      page_number: pageNumber
+      page_number: pageNumber,
+      scenario: scenario
     }
 
     axios.defaults.headers.post['Content-Type'] = 'application/json;charset=utf-8';
@@ -60,6 +67,7 @@ function RegisterBook() {
     setFileName("");
     setAuthorName("");
     setPageNumber(0);
+    setScenario("");
   }
 
   return(
@@ -90,6 +98,12 @@ function RegisterBook() {
             <div>ページ数</div>
             <div className="text-area">
               <input type="number" value={pageNumber} min={0} onChange={doChangePageNumber}></input>
+            </div>
+          </li>
+          <li className="li-style">
+            <div>あらすじ</div>
+            <div className="text-area">
+              <textarea className="scenario" rows={4} value={scenario} onChange={doChangeScenario}></textarea>
             </div>
           </li>
           <li className="li-style">

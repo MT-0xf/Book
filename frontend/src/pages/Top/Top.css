@@ -29,3 +29,12 @@
 .search-btn-radius {
    border-radius: 100vh;
 }
+
+@media screen and (max-width: 700px) {
+  .search_container input[type="text"]{
+    width: 200px;
+  }
+  .search-btn-green {
+    font-size: 20px;
+  }  
+}

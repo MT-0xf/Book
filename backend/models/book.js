@@ -22,7 +22,8 @@ module.exports = (sequelize, DataTypes) => {
     title: DataTypes.STRING(200),
     author_name: DataTypes.STRING(100),
     page_number: DataTypes.INTEGER,
-    file: DataTypes.STRING(999)
+    file: DataTypes.STRING(999),
+    scenario: DataTypes.STRING(9999)
   }, {
     sequelize,
     modelName: 'Book',
