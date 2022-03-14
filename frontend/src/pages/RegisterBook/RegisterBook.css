@@ -82,4 +82,8 @@ input[type=number] {
   input[type=text] {
     padding: 3px 0px 3px 0px;
   }
+
+  input[type=number] {
+    padding: 3px 0px 3px 0px;
+  }
 }

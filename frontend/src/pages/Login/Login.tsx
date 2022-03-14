@@ -18,15 +18,35 @@ function RegisterBook() {
   }
 
   const submit = () => {
+    if (name == "") {
+      window.alert("ユーザ名を入力してください");
+      return;
+    }
+
+    if (name.length > 32) {
+      window.alert("ユーザ名は32文字以内で入力してください");
+      return;
+    }
+
+    if (password == "") {
+      window.alert("パスワードを入力してください");
+      return;
+    }
+
+    if (password.length > 32) {
+      window.alert("パスワードは32文字以内で入力してください");
+      return;
+    }
+
     let req = {
       name: name,
       password: password,
     }
 
     axios.defaults.headers.post['Content-Type'] = 'application/json;charset=utf-8';
-    axios.post('http://localhost:3000/users/login', req).then(response => {
+    axios.post('http://192.168.1.179:3000/users/login', req).then(response => {
       if (response.data == "login-error") {
-        alert("ユーザ名またはパスワードが間違っています");
+        window.alert("ユーザ名またはパスワードが間違っています");
       } else {
         window.confirm('ログインしました');
         setUserName(name);
@@ -36,7 +56,7 @@ function RegisterBook() {
         setName("");
         setPassword("");
       }
-    })
+    });
   }
 
   return(
@@ -48,13 +68,13 @@ function RegisterBook() {
           <li className="li-style">
             <div>ユーザ名</div>
             <div className="text-area">
-              <input type="text" value={name} onChange={doChangeName}></input>
+              <input type="text" maxLength={32} value={name} onChange={doChangeName}></input>
             </div>
           </li>
           <li className="li-style">
             <div>パスワード</div>
             <div className="text-area">
-              <input type="password" value={password} onChange={doChangePassword}></input>
+              <input type="password" maxLength={32} value={password} onChange={doChangePassword}></input>
             </div>
           </li>
           <li className="li-style">

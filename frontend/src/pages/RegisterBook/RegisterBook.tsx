@@ -41,6 +41,46 @@ function RegisterBook() {
   }
 
   const submit = () => {
+    if (title == "") {
+      window.alert("タイトルを入力してください");
+      return;
+    }
+
+    if (title.length > 32) {
+      window.alert("タイトルは32文字以内で入力してください");
+      return;
+    }
+
+    if (file == "") {
+      window.alert("画像を追加してください");
+      return;
+    }
+
+    if (authorName == "") {
+      window.alert("著者名を入力してください");
+      return;
+    }
+
+    if (authorName.length > 32) {
+      window.alert("著者名は32文字以内で入力してください");
+      return;
+    }
+
+    if (pageNumber > 100000) {
+      window.alert("ページ数は100000ページ以内で入力してください");
+      return;
+    }
+
+    if (scenario == "") {
+      window.alert("あらすじを入力してください");
+      return;
+    }
+
+    if (scenario.length > 200) {
+      window.alert("あらすじは200文字以内で入力してください");
+      return;
+    }
+
     var Base64 = {
       encode: function(str: string) {
           return btoa(unescape(encodeURIComponent(str)));
@@ -59,14 +99,20 @@ function RegisterBook() {
     }
 
     axios.defaults.headers.post['Content-Type'] = 'application/json;charset=utf-8';
-    axios.post('http://localhost:3000/books/regist', req);
+    axios.post('http://192.168.1.179:3000/books/regist', req).then(response => {
+      if (response.data == "success") {
+        setTitle("");
+        setFile("");
+        setFileName("");
+        setAuthorName("");
+        setPageNumber(0);
+        setScenario("");
+        window.alert('本を登録しました');
+      } else {
+        window.alert('本の登録に失敗しました');
+      }
+    });
 
-    setTitle("");
-    setFile("");
-    setFileName("");
-    setAuthorName("");
-    setPageNumber(0);
-    setScenario("");
   }
 
   return(
@@ -78,7 +124,7 @@ function RegisterBook() {
           <li className="li-style">
             <div>タイトル</div>
             <div className="text-area">
-              <input type="text" value={title} onChange={doChangeTitle}></input>
+              <input type="text" maxLength={32} value={title} onChange={doChangeTitle}></input>
             </div>
           </li>
           <li className="li-style">
@@ -90,19 +136,19 @@ function RegisterBook() {
           <li className="li-style">
             <div>著者名</div>
             <div className="text-area">
-              <input type="text" value={authorName} onChange={doChangeAuthorName}></input>
+              <input type="text" maxLength={32} value={authorName} onChange={doChangeAuthorName}></input>
             </div>
           </li>
           <li className="li-style">
             <div>ページ数</div>
             <div className="text-area">
-              <input type="number" value={pageNumber} min={0} onChange={doChangePageNumber}></input>
+              <input type="number" value={pageNumber} min={0} max={100000} onChange={doChangePageNumber}></input>
             </div>
           </li>
           <li className="li-style">
             <div>あらすじ</div>
             <div className="text-area">
-              <textarea className="scenario" rows={4} value={scenario} onChange={doChangeScenario}></textarea>
+              <textarea className="scenario" maxLength={200} rows={4} value={scenario} onChange={doChangeScenario}></textarea>
             </div>
           </li>
           <li className="li-style">

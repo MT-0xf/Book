@@ -5,3 +5,9 @@ input[type=password] {
   border: 1px solid #ccc;
   width: 100%;
 }
+
+@media screen and (max-width: 750px) {
+  input[type=password] {
+    padding: 3px 0px 3px 0px;
+  }
+}

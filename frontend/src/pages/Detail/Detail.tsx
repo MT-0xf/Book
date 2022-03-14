@@ -33,7 +33,7 @@ function Detail(props: any) {
     root: {
       display: 'inline-block',  //中央寄せのためインラインブロックに変更
     },
-  })(MuiPagination);  
+  })(MuiPagination);
 
   if (windowSize < 700) {
     isPc = false;
@@ -96,6 +96,26 @@ function Detail(props: any) {
   }
 
   const submit = () => {
+    if (name == "") {
+      window.alert("名前を入力してください");
+      return;
+    }
+
+    if (name.length > 32) {
+      window.alert("名前は32文字以内で入力してください");
+      return;
+    }
+
+    if (comment == "") {
+      window.alert("コメント内容を入力してください");
+      return;
+    }
+
+    if (comment.length > 200) {
+      window.alert("コメント内容は32文字以内で入力してください");
+      return;
+    }
+
     let req = {
       bookId: urlParams.id,
       name: name,
@@ -184,13 +204,13 @@ function Detail(props: any) {
           <li className="li-style">
             <div>名前</div>
             <div className="text-area">
-              <input type="text" value={name} onChange={doChangeName}></input>
+              <input type="text" maxLength={32} value={name} onChange={doChangeName}></input>
             </div>
           </li>
           <li className="li-style">
             <div>コメント内容</div>
             <div className="text-area">
-              <textarea className="scenario" rows={4} value={comment} onChange={doChangeComment}></textarea>
+              <textarea className="scenario" rows={4} maxLength={200} value={comment} onChange={doChangeComment}></textarea>
             </div>
           </li>
           <li className="li-style">

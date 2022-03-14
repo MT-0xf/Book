@@ -18,6 +18,45 @@ router.get('/', function (req, res, next) {
 });
 
 router.post('/regist', function (req, res, next) {
+  if (req.body.name == undefined) {
+    return res.send("error");
+  }
+
+  if (req.body.name == "") {
+    return res.send("error");
+  }
+  if (req.body.name.length > 32) {
+    return res.send("error");
+  }
+
+  if (req.body.password == undefined) {
+    return res.send("error");
+  }
+
+  if (req.body.password == "") {
+    return res.send("error");
+  }
+
+  if (req.body.password.length > 32) {
+    return res.send("error");
+  }
+
+  if (req.body.confirmPassword == undefined) {
+    return res.send("error");
+  }
+
+  if (req.body.confirmPassword == "") {
+    return res.send("error");
+  }
+
+  if (req.body.confirmPassword.length > 32) {
+    return res.send("error");
+  }
+
+  if (req.body.password != req.body.confirmPassword) {
+    return res.send("error");
+  }
+
   db.Users.findAll({
     where: {
       name: req.body.name
@@ -38,7 +77,31 @@ router.post('/regist', function (req, res, next) {
   );
 });
 
-router.post('/login', function (req, res, next) {
+router.post('/login', function (req, res, next) {  
+  if (req.body.name == undefined) {
+    return res.send("error");
+  }
+
+  if (req.body.name == "") {
+    return res.send("error");
+  }
+  
+  if (req.body.name.length > 32) {
+    return res.send("error");
+  }
+
+  if (req.body.password == undefined) {
+    return res.send("error");
+  }
+
+  if (req.body.password == "") {
+    return res.send("error");
+  }
+  
+  if (req.body.password.length > 32) {
+    return res.send("error");
+  }
+
   db.Users.findAll({
     where: {
       name: req.body.name,

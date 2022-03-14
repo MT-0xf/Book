@@ -28,6 +28,42 @@ router.get('/:id', function (req, res, next) {
 });
 
 router.post('/regist', function (req, res, next) {
+  if (req.body.name == undefined) {
+    return res.send("error");
+  }
+
+  if (req.body.name == "") {
+    return res.send("error");
+  }
+  
+  if (req.body.name.length > 32) {
+    return res.send("error");
+  }
+
+  if (req.body.date == undefined) {
+    return res.send("error");
+  }
+
+  if (req.body.date == "") {
+    return res.send("error");
+  }
+  
+  if (req.body.date.length > 32) {
+    return res.send("error");
+  }
+
+  if (req.body.content == undefined) {
+    return res.send("error");
+  }
+
+  if (req.body.content == "") {
+    return res.send("error");
+  }
+  
+  if (req.body.content.length > 200) {
+    return res.send("error");
+  }
+
   db.sequelize.sync()
     .then(() => db.Comments.create({
       bookId: req.body.bookId,

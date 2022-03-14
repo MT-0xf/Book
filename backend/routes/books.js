@@ -66,6 +66,56 @@ router.get('/search', function(req, res, next) {
 });
 
 router.post('/regist', function(req, res, next) {
+  console.log('test');
+
+  if (req.body.title == undefined) {
+    return res.send("error");
+  }
+
+  if (req.body.title == "") {
+    return res.send("error");
+  }
+  
+  if (req.body.title.length > 32) {
+    return res.send("error");
+  }
+
+  if (req.body.file == undefined) {
+    return res.send("error");
+  }
+
+  if (req.body.file == "") {
+    return res.send("error");
+  }
+  
+  if (req.body.author_name == undefined) {
+    return res.send("error");
+  }
+
+  if (req.body.author_name == "") {
+    return res.send("error");
+  }
+  
+  if (req.body.author_name.length > 32) {
+    return res.send("error");
+  }
+
+  if (req.body.page_number > 100000) {
+    return res.send("error");
+  }
+
+  if (req.body.scenario == undefined) {
+    return res.send("error");
+  }
+
+  if (req.body.scenario == "") {
+    return res.send("error");
+  }
+  
+  if (req.body.scenario.length > 200) {
+    return res.send("error");
+  }
+
   var Base64 = {
     encode: function(str) {
         return btoa(unescape(encodeURIComponent(str)));
@@ -102,6 +152,8 @@ router.post('/regist', function(req, res, next) {
     page_number: req.body.page_number,
     scenario: req.body.scenario
   }));
+
+  return res.send('success');
 });
 
 
