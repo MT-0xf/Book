@@ -64,3 +64,9 @@ h1 {
   background-color: white;
 }
 
+.blank-white-space {
+  width: auto;
+  height: 5px;
+  background-color: white;
+}
+

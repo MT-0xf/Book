@@ -35,7 +35,7 @@ function Detail(props: any) {
     },
   })(MuiPagination);
 
-  if (windowSize < 700) {
+  if (windowSize < 800) {
     isPc = false;
   } else {
     isPc = true;
@@ -44,7 +44,7 @@ function Detail(props: any) {
   window.addEventListener('resize', function () {
     windowSize = window.innerWidth;
 
-    if (windowSize < 700) {
+    if (windowSize < 800) {
       isPc = false;
     } else {
       isPc = true;
@@ -178,7 +178,9 @@ function Detail(props: any) {
         <div className="form">
           <div id="comment" className="head">コメント</div>
           <div className="comment">
+            <div className="blank-white-space"></div>
             {list}
+            <div className="blank-white-space"></div>
           </div>
           <div className="page">
             <Pagination
