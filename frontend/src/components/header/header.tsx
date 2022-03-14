@@ -9,8 +9,8 @@ function Header() {
       </div>
       <div className='panel'>
         <Link className='register' to="/register/book"><span>本を登録</span></Link>
-        <span className='register'>新規登録</span>
-        <span className='login'>ログイン</span>
+        <Link className='register' to="/register/user"><span>ユーザ登録</span></Link>
+        <Link className='login' to="/login"><span>ログイン</span></Link>
       </div>
     </div>
   )

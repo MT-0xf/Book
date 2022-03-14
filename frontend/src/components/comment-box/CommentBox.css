@@ -1,0 +1,11 @@
+.comment-box {
+  background-color: white;
+  padding: 5px 10px;
+}
+
+.comment-wrap {
+  padding: 15px;
+  background-color: #f5f6f2;
+  word-wrap: break-word;
+}
+

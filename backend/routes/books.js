@@ -19,6 +19,29 @@ router.get('/', function(req, res, next) {
   });
 });
 
+router.get('/detail/:id', function(req, res, next) {
+  db.Book.findAll({
+    where: {
+      id : req.params.id
+    }
+  }).then(
+    books => {
+    if (!books) {
+        console.log("データを取得できませんでした");
+        res.send('Error');
+    } else {
+        books.map(book => {
+          if (fs.existsSync(book.file)) {
+            let img = fs.readFileSync(book.file, { encoding: "base64" });
+            book.file = "data:image/jpeg;base64," + img;  
+          }
+        });
+        res.json(books);
+    }
+  });
+});
+
+
 router.get('/search', function(req, res, next) {
   db.Book.findAll({
       where: {

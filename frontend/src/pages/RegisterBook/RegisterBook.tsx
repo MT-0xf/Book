@@ -40,7 +40,6 @@ function RegisterBook() {
     setScenario(e.target.value);
   }
 
-
   const submit = () => {
     var Base64 = {
       encode: function(str: string) {

@@ -1,0 +1,66 @@
+.book-detail {
+  padding: 0;
+  width: 100%;
+  height: 280px;
+  margin-top: 30px;
+  background-color: white;
+}
+
+.book-detail-size {
+  width: 30%;
+  max-height: 280px;
+}
+
+.lett {
+  float: left;
+}
+
+.right {
+  margin-top: 20px;
+  width: 68%;
+  float: right;
+}
+
+h1 {
+  padding: 0;
+  margin: 0;
+}
+
+.book-detail-sp {
+  padding: 0;
+  width: 100%;
+  height: auto;
+  margin-top: 30px;
+  background-color: white;
+}
+
+.book-detail-content-sp {
+  padding: 40px;
+  padding-top: 5px;
+}
+
+.book-detail-size-sp {
+  padding: 0;
+  width: auto;
+  max-height: 200px;
+  margin-top: 20px;
+  background-color: white;
+}
+
+.book-detail-sp-img {
+  text-align: center;
+}
+
+.book-detail-title {
+  text-align: center;
+}
+
+.book-detail-authorName {
+  text-align: center;
+}
+
+.comment {
+  height: auto;
+  background-color: white;
+}
+
