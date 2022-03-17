@@ -9,6 +9,7 @@ import BookCard from "../../components/book-card/BookCard";
 import { Pagination } from "@material-ui/lab";
 import MuiPagination from '@material-ui/lab/Pagination';
 import { withStyles } from '@material-ui/core/styles';
+import { useNavigate } from "react-router-dom";
 
 interface Book {
   id: number;
@@ -19,6 +20,7 @@ interface Book {
 }
 
 function MyPage() {
+  const navigate = useNavigate();
   const { userName, setUserName, isLogin, setIsLogin } = useContext(context);
   const [data, setData] = useState([]);
   const [readBooks, setReadBooks] = useState([]);
@@ -33,7 +35,7 @@ function MyPage() {
     root: {
       display: 'inline-block',  //中央寄せのためインラインブロックに変更
     },
-  })(MuiPagination);  
+  })(MuiPagination);
 
   let allReadList: any[];
   let allReadingList: any[];
@@ -51,18 +53,18 @@ function MyPage() {
     max = 16;
   }
 
-  window.addEventListener("orientationchange", ()=>{
+  window.addEventListener("orientationchange", () => {
     let angle = window.orientation;
     if (angle == 0) {
       max = 15;
-    } 
+    }
     if (angle == 90) {
       max = 16;
     }
     ReadList = allReadList.slice((page1 - 1) * max, page1 * max);
     ReadingList = allReadingList.slice((page2 - 1) * max, page2 * max);
     WantList = allWantList.slice((page3 - 1) * max, page3 * max);
-      window.location.reload();
+    window.location.reload();
   });
 
   useEffect(() => {
@@ -129,11 +131,28 @@ function MyPage() {
   ReadingList = allReadingList.slice((page2 - 1) * max, page2 * max);
   WantList = allWantList.slice((page3 - 1) * max, page3 * max);
 
+  function logout() {
+    window.localStorage.setItem("isLogin", "false");
+    window.localStorage.setItem("userName", "");
+    
+    setIsLogin(false);
+    setUserName("");
+
+    const path = axios.getUri({
+      url: '/login'
+    });
+    navigate(path);
+
+    window.location.reload();
+
+  }
+
   return (
     <div>
       <Header />
       <div className="form">
         <div className="head">{userName}のページ</div>
+        <div className="head"></div>
         <div className="tabPanel">
           <Tabs>
             <TabList>
@@ -160,7 +179,7 @@ function MyPage() {
             </TabPanel>
 
             <TabPanel>
-            <div className="book-list">
+              <div className="book-list">
                 {ReadingList}
               </div>
               <div className="page">
@@ -177,7 +196,7 @@ function MyPage() {
             </TabPanel>
 
             <TabPanel>
-            <div className="book-list">
+              <div className="book-list">
                 {WantList}
               </div>
               <div className="page">
@@ -193,6 +212,9 @@ function MyPage() {
               </div>
             </TabPanel>
           </Tabs>
+          <div className="button-area">
+            <input type="button" className='btn-red btn-radius logout-margin' value="ログアウト" onClick={logout}></input>
+          </div>
         </div>
       </div>
     </div>

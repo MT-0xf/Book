@@ -10,3 +10,19 @@
 .list-padding {
   padding-top: 20px;
 }
+
+.logout-margin {
+  margin-top: 30px;
+}
+
+.btn-red {
+  color: #fff;
+  background-color: red;
+  font-size: 25px;
+  border: none;
+  width: 100%;
+}
+.btn-red:hover {
+  color: #fff;
+  background: red;
+}
