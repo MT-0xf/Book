@@ -63,10 +63,12 @@ router.post('/liftBook', function (req, res, next) {
     }
   }).then(
   bookStatus => {
-    bookStatus[0].destroy().then(() => {
-      let status = { status: 0}
-      res.json(status);
-    });
+    if (bookStatus.length != 0) {
+      bookStatus[0].destroy().then(() => {
+        let status = { status: 0}
+        res.json(status);
+      });  
+    }
   });
 });
 
