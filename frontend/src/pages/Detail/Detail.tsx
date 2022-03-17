@@ -1,11 +1,12 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import CommentBox from "../../components/comment-box/CommentBox";
 import Header from "../../components/header/header";
 import './Detail.css';
 import MuiPagination from '@material-ui/lab/Pagination';
 import { withStyles } from '@material-ui/core/styles';
+import { context } from "../../App";
 
 function Detail(props: any) {
   let init = {
@@ -21,6 +22,9 @@ function Detail(props: any) {
   const [update, setUpdata] = useState(true);
   const [comment, setComment] = useState("");
   const [name, setName] = useState("");
+  const [bookStatus, setBookStatus] = useState(-1);
+  const [popupMessage, setPopupMessage] = useState("");
+  const { userName, setUserName, isLogin, setIsLogin } = useContext(context);
 
   const urlParams = useParams<{ id: string }>();
   let windowSize: number = window.innerWidth;
@@ -66,6 +70,16 @@ function Detail(props: any) {
         setComments(response.data);
       }
     );
+
+    let req = {
+      name: window.localStorage.getItem("userName"),
+      bookId: urlParams.id
+    }
+
+    axios.defaults.headers.post['Content-Type'] = 'application/json;charset=utf-8';
+    axios.post('http://192.168.1.179:3000/bookstatus', req).then(response => {
+      setBookStatus(response.data.status);
+    });
   }, []);
 
   const doChangeComment = (e: any) => {
@@ -80,11 +94,11 @@ function Detail(props: any) {
     let year_str = date.getFullYear();
     let month_str = 1 + date.getMonth();
     let day_str = date.getDate();
-    let hour_str = date.getHours();
-    let minute_str = date.getMinutes();
-    let second_str = date.getSeconds();
+    let hour_str = ('00' + date.getHours()).slice(-2);
+    let minute_str = ('00' + date.getMinutes()).slice(-2);
+    let second_str = ('00' + date.getSeconds()).slice(-2);
 
-    let format_str = 'YYYY-MM-DD hh時mm分ss秒';
+    let format_str = 'YYYY-MM-DD hh:mm:ss';
     format_str = format_str.replace(/YYYY/g, year_str.toString());
     format_str = format_str.replace(/MM/g, month_str.toString());
     format_str = format_str.replace(/DD/g, day_str.toString());
@@ -124,7 +138,8 @@ function Detail(props: any) {
     }
 
     axios.defaults.headers.post['Content-Type'] = 'application/json;charset=utf-8';
-    axios.post('http://localhost:3000/comments/regist', req);
+    axios.post('http://192.168.1.179:3000/comments/regist', req);
+    window.location.reload();
 
     setName("");
     setComment("");
@@ -139,6 +154,92 @@ function Detail(props: any) {
 
   let totalPage: number = Math.ceil(allList.length / max);
   list = allList.slice((page - 1) * max, page * max);
+
+
+  function addBook(i: number) {
+    if (bookStatus == 0) {
+      let req = {
+        name: userName,
+        bookId: urlParams.id,
+        status: i
+      }
+
+      axios.defaults.headers.post['Content-Type'] = 'application/json;charset=utf-8';
+      axios.post('http://192.168.1.179:3000/bookstatus/addBook', req).then(response => {
+        setBookStatus(response.data.status);
+        if (i == 1) {
+          setPopupMessage("読んだ本に追加しました");
+        }
+        if (i == 2) {
+          setPopupMessage("読んでる本に追加しました");
+        }
+        if (i == 3) {
+          setPopupMessage("読みたい本に追加しました");
+        }
+
+        let popup = document.querySelector('.popup');
+        popup?.classList.add('js_active');
+        setTimeout(function () {
+          popup?.classList.remove('js_active');
+        }, 3000);
+      });
+
+    } else {
+      let req = {
+        name: userName,
+        bookId: urlParams.id,
+        status: i
+      }
+
+      axios.defaults.headers.post['Content-Type'] = 'application/json;charset=utf-8';
+      axios.put('http://192.168.1.179:3000/bookstatus/addBook', req).then(response => {
+        setBookStatus(response.data.status);
+        if (i == 1) {
+          setPopupMessage("読んだ本に追加しました");
+        }
+        if (i == 2) {
+          setPopupMessage("読んでる本に追加しました");
+        }
+        if (i == 3) {
+          setPopupMessage("読みたい本に追加しました");
+        }
+
+        let popup = document.querySelector('.popup');
+        popup?.classList.add('js_active');
+        setTimeout(function () {
+          popup?.classList.remove('js_active');
+        }, 3000);
+      });
+    }
+  }
+
+
+  function liftBook(i: number) {
+    let req = {
+      name: userName,
+      bookId: urlParams.id
+    }
+
+    axios.defaults.headers.post['Content-Type'] = 'application/json;charset=utf-8';
+    axios.post('http://192.168.1.179:3000/bookstatus/liftBook', req).then(response => {
+      setBookStatus(response.data.status);
+      if (i == 1) {
+        setPopupMessage("読んだ本から解除しました");
+      }
+      if (i == 2) {
+        setPopupMessage("読んでる本から解除しました");
+      }
+      if (i == 3) {
+        setPopupMessage("読みたい本から解除しました");
+      }
+
+      let popup = document.querySelector('.popup');
+      popup?.classList.add('js_active');
+      setTimeout(function () {
+        popup?.classList.remove('js_active');
+      }, 3000);
+    });
+  }
 
   return (
     <div>
@@ -173,6 +274,36 @@ function Detail(props: any) {
             </div>
           </div>
         </div>
+      }
+      {isLogin && userName != "" ?
+        <div className="form">
+          <div className="addBook">
+            <table>
+              <tr>
+                {
+                  bookStatus == 1 ?
+                    <td onClick={() => liftBook(1)}>読んだ本から<br />解除</td>
+                    :
+                    <td onClick={() => addBook(1)}>読んだ本に<br />追加</td>
+                }
+                {
+                  bookStatus == 2 ?
+                    <td onClick={() => liftBook(2)}>読んでる本<br />から解除</td>
+                    :
+                    <td onClick={() => addBook(2)}>読んでる本<br />に追加</td>
+                }
+                {
+                  bookStatus == 3 ?
+                    <td onClick={() => liftBook(3)}>読みたい本<br />から解除</td>
+                    :
+                    <td onClick={() => addBook(3)}>読みたい本<br />に追加</td>
+                }
+              </tr>
+            </table>
+          </div>
+        </div>
+        :
+        <div></div>
       }
       <div>
         <div className="form">
@@ -222,6 +353,7 @@ function Detail(props: any) {
           </li>
         </ul>
       </div>
+      <p className="popup">{popupMessage}</p>
     </div>
   )
 }

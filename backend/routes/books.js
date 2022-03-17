@@ -65,6 +65,27 @@ router.get('/search', function(req, res, next) {
   });
 });
 
+router.get('/mypage', function(req, res, next) {    
+  db.BookStatus.findAll({
+    where: {
+        name: req.query.name
+    },
+    raw: false,
+    include: [{
+        model: db.Book,
+        required: true
+    }]
+  }).then((books)=>{
+    books.map(book => {
+      if (fs.existsSync(book.Book.file)) {
+        let img = fs.readFileSync(book.Book.file, { encoding: "base64" });
+        book.Book.file = "data:image/jpeg;base64," + img;  
+      }
+    });
+    res.json(books);
+  })
+});
+
 router.post('/regist', function(req, res, next) {
   console.log('test');
 

@@ -8,6 +8,7 @@ import RegisterBook from './pages/RegisterBook/RegisterBook';
 import Detail from './pages/Detail/Detail';
 import RegisterUser from './pages/RegisterUser/RegisterUser';
 import Login from './pages/Login/Login';
+import MyPage from './pages/MyPage/MyPage';
 
 export const context = React.createContext(localStorage.context)
 
@@ -31,7 +32,7 @@ function App() {
       setIsLogin(false);
     }
 
-    if (strUserName != null) {
+    if (strUserName != null && strUserName != "") {
       setUserName(strUserName);
     }
   }, [isLogin, userName]);
@@ -47,6 +48,7 @@ function App() {
             <Route path='/register/user' element={<RegisterUser />} />
             <Route path='/detail/book/:id' element={<Detail />} />
             <Route path='/login' element={<Login />} />
+            <Route path='/mypage' element={<MyPage />} />
           </Routes>
         </context.Provider>
       </BrowserRouter>

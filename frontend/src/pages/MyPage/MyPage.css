@@ -1,0 +1,12 @@
+.react-tabs__tab--selected {
+  background-color: green !important;
+  color: white !important;
+}
+
+.tabPanel {
+  padding: 10px;
+}
+
+.list-padding {
+  padding-top: 20px;
+}

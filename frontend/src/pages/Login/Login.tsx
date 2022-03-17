@@ -3,8 +3,10 @@ import './Login.css';
 import { useContext, useState } from 'react';
 import axios from 'axios';
 import { context } from '../../App'
+import { useNavigate } from "react-router-dom";
 
 function RegisterBook() {
+  const navigate = useNavigate();
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const { userName, setUserName, isLogin, setIsLogin } = useContext(context);
@@ -53,8 +55,15 @@ function RegisterBook() {
         setIsLogin(true);
         window.localStorage.setItem("userName", name);
         window.localStorage.setItem("isLogin", "true");
+
+        const path = axios.getUri({
+          url: '/mypage'
+        });
+        navigate(path);
+    
         setName("");
         setPassword("");
+        window.location.reload();
       }
     });
   }

@@ -70,3 +70,40 @@ h1 {
   background-color: white;
 }
 
+.addBook {
+  background-color: green;
+  color: white;
+  padding: 10px;
+  text-align: center;
+}
+
+.addBook table {
+  margin: auto;
+}
+
+.addBook table tr td {
+  border-width: thin;
+  border-color: white;
+  border-style: solid;
+  width: 100px;
+  height: 100px;
+}
+.popup {
+  position: fixed;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  transform: translateY(100%);
+  padding: 1em;
+  margin: 0px;
+  background-color: #20588f;
+  color: #fff;
+  text-align: center;
+  opacity: 0;
+  transition: 0.5s;
+}
+.popup.js_active {
+  transform: translateY(0%);
+  opacity: 1;
+}
+
