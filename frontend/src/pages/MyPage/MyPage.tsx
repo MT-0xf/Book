@@ -162,7 +162,7 @@ function MyPage() {
             </TabList>
 
             <TabPanel>
-              <div className="book-list list-padding">
+              <div className="book-list">
                 {ReadList}
               </div>
               <div className="page">
