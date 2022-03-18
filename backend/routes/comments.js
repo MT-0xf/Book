@@ -71,4 +71,6 @@ router.post('/regist', function (req, res, next) {
       date: req.body.date,
       content: req.body.content
     }));
+
+  return res.send("success");
 });

@@ -5,6 +5,7 @@ const db = require('../models')
 const fs = require('fs');
 // npm i urlsafe-base64 でインストールしたモジュール。
 const base64 = require('urlsafe-base64');
+const base64url = require('base64url');
 const Sequelize = require('sequelize');
 const Op = Sequelize.Op;
 
@@ -137,16 +138,8 @@ router.post('/regist', function(req, res, next) {
     return res.send("error");
   }
 
-  var Base64 = {
-    encode: function(str) {
-        return btoa(unescape(encodeURIComponent(str)));
-    },
-    decode: function(str) {
-        return decodeURIComponent(escape(atob(str)));
-    }
-  };
-  
-  let decoded = Base64.decode(req.body.file);
+
+  let decoded = base64url.decode(req.body.file);
   decoded = decoded.split(',')[1];
   var img = base64.decode(decoded);
 

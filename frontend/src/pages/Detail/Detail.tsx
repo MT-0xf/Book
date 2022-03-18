@@ -138,11 +138,13 @@ function Detail(props: any) {
     }
 
     axios.defaults.headers.post['Content-Type'] = 'application/json;charset=utf-8';
-    axios.post('http://192.168.1.179:3000/comments/regist', req);
-    window.location.reload();
-
-    setName("");
-    setComment("");
+    axios.post('http://50.19.90.110:3000/comments/regist', req).then(response => {
+      if (response.data == "success") {
+        window.location.reload();
+        setName("");
+        setComment("");    
+      }
+    });
   }
 
   allList = comments.map((value: { name: string; date: string; content: string; }, key) => {
