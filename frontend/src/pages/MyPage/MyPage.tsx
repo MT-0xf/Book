@@ -212,9 +212,7 @@ function MyPage() {
               </div>
             </TabPanel>
           </Tabs>
-          <div className="button-area">
             <input type="button" className='btn-red btn-radius logout-margin' value="ログアウト" onClick={logout}></input>
-          </div>
         </div>
       </div>
     </div>
