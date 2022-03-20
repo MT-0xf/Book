@@ -15,8 +15,8 @@ function BookCard(props: any) {
       <div className="book-card">
         <Link to={link} className="link">
           <div><img src={file} height="150px" width="100px" /></div>
-          <div className="text">{title}</div>
-          <div className="text">{authorName}</div>
+          <div className="text">{title.slice(0, 5)}{title.length > 6 ? "..." : ""}</div>
+          <div className="text">{authorName.slice(0, 5)}{authorName.length > 6 ? "..." : ""}</div>
         </Link>
       </div>
   )

@@ -10,6 +10,7 @@ function RegisterBook() {
   const [authorName, setAuthorName] = useState("");
   const [pageNumber, setPageNumber] = useState(0);
   const [scenario, setScenario] = useState("");
+  const [disable, setDisable] = useState(false);
 
   const doChangeTitle = (e: any) => {
     setTitle(e.target.value);
@@ -98,8 +99,9 @@ function RegisterBook() {
       scenario: scenario
     }
 
+    setDisable(true);
     axios.defaults.headers.post['Content-Type'] = 'application/json;charset=utf-8';
-    axios.post('http://192.168.1.179:3000/books/regist', req).then(response => {
+    axios.post('http://localhost:3000/books/regist', req).then(response => {
       if (response.data == "success") {
         setTitle("");
         setFile("");
@@ -111,6 +113,7 @@ function RegisterBook() {
       } else {
         window.alert('本の登録に失敗しました');
       }
+      setDisable(false);
     });
 
   }
@@ -153,7 +156,7 @@ function RegisterBook() {
           </li>
           <li className="li-style">
             <div className="button-area">
-              <input type="button" className='btn-green btn-radius' value="登録する" onClick={submit}></input>
+              <input disabled={disable} type="button" className='btn-green btn-radius' value="登録する" onClick={submit}></input>
             </div>
           </li>
         </ul>

@@ -13,7 +13,12 @@ function Header() {
       </div>
       <div className='panel'>
         <Link className='register' to="/register/book"><span>本を登録</span></Link>
-        <Link className='register' to="/register/user"><span>ユーザ登録</span></Link>
+        {
+          !isLogin && userName == "" ?
+            <Link className='register' to="/register/user"><span>ユーザ登録</span></Link>
+          :
+            <span></span>
+        }
         {
           isLogin && userName != "" ?
           <Link className='login' to="/mypage"><span>マイページ</span></Link>

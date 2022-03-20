@@ -25,6 +25,7 @@ function Detail(props: any) {
   const [bookStatus, setBookStatus] = useState(-1);
   const [popupMessage, setPopupMessage] = useState("");
   const { userName, setUserName, isLogin, setIsLogin } = useContext(context);
+  const [disable, setDisable] = useState(false);
 
   const urlParams = useParams<{ id: string }>();
   let windowSize: number = window.innerWidth;
@@ -59,13 +60,13 @@ function Detail(props: any) {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    axios.get('http://192.168.1.179:3000/books/detail/' + urlParams.id).then(
+    axios.get('http://localhost:3000/books/detail/' + urlParams.id).then(
       (response: any) => {
         setData(response.data[0]);
       }
     );
 
-    axios.get('http://192.168.1.179:3000/comments/' + urlParams.id).then(
+    axios.get('http://localhost:3000/comments/' + urlParams.id).then(
       (response: any) => {
         setComments(response.data);
       }
@@ -77,7 +78,7 @@ function Detail(props: any) {
     }
 
     axios.defaults.headers.post['Content-Type'] = 'application/json;charset=utf-8';
-    axios.post('http://192.168.1.179:3000/bookstatus', req).then(response => {
+    axios.post('http://localhost:3000/bookstatus', req).then(response => {
       setBookStatus(response.data.status);
     });
   }, []);
@@ -137,13 +138,15 @@ function Detail(props: any) {
       content: comment
     }
 
+    setDisable(true);
     axios.defaults.headers.post['Content-Type'] = 'application/json;charset=utf-8';
-    axios.post('http://50.19.90.110:3000/comments/regist', req).then(response => {
+    axios.post('http://localhost:3000/comments/regist', req).then(response => {
       if (response.data == "success") {
         window.location.reload();
         setName("");
         setComment("");    
       }
+      setDisable(false);
     });
   }
 
@@ -167,7 +170,7 @@ function Detail(props: any) {
       }
 
       axios.defaults.headers.post['Content-Type'] = 'application/json;charset=utf-8';
-      axios.post('http://192.168.1.179:3000/bookstatus/addBook', req).then(response => {
+      axios.post('http://localhost:3000/bookstatus/addBook', req).then(response => {
         setBookStatus(response.data.status);
         if (i == 1) {
           setPopupMessage("読んだ本に追加しました");
@@ -194,7 +197,7 @@ function Detail(props: any) {
       }
 
       axios.defaults.headers.post['Content-Type'] = 'application/json;charset=utf-8';
-      axios.put('http://192.168.1.179:3000/bookstatus/addBook', req).then(response => {
+      axios.put('http://localhost:3000/bookstatus/addBook', req).then(response => {
         setBookStatus(response.data.status);
         if (i == 1) {
           setPopupMessage("読んだ本に追加しました");
@@ -223,7 +226,7 @@ function Detail(props: any) {
     }
 
     axios.defaults.headers.post['Content-Type'] = 'application/json;charset=utf-8';
-    axios.post('http://192.168.1.179:3000/bookstatus/liftBook', req).then(response => {
+    axios.post('http://localhost:3000/bookstatus/liftBook', req).then(response => {
       setBookStatus(response.data.status);
       if (i == 1) {
         setPopupMessage("読んだ本から解除しました");
@@ -350,7 +353,7 @@ function Detail(props: any) {
           </li>
           <li className="li-style">
             <div className="button-area">
-              <input type="button" className='btn-green btn-radius' value="送信する" onClick={submit}></input>
+              <input disabled={disable} type="button" className='btn-green btn-radius' value="送信する" onClick={submit}></input>
             </div>
           </li>
         </ul>

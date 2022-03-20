@@ -72,7 +72,7 @@ function MyPage() {
 
     let name = window.localStorage.getItem("userName");
 
-    axios.get('http://192.168.1.179:3000/books/mypage?name=' + name).then(response => {
+    axios.get('http://localhost:3000/books/mypage?name=' + name).then(response => {
       setData(response.data);
     });
   }, []);

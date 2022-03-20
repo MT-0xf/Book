@@ -2,11 +2,14 @@ import Header from "../../components/header/header";
 import './RegisterUser.css';
 import { useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from "react-router-dom";
 
 function RegisterBook() {
+  const navigate = useNavigate();
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setComfirmPassword] = useState("");
+  const [disable, setDisable] = useState(false);
 
   const doChangeName = (e: any) => {
     setName(e.target.value);
@@ -62,16 +65,28 @@ function RegisterBook() {
       confirmPassword: confirmPassword
     }
 
+    setDisable(true);
     axios.defaults.headers.post['Content-Type'] = 'application/json;charset=utf-8';
-    axios.post('http://192.168.1.179:3000/users/regist', req).then(response => {
+    axios.post('http://localhost:3000/users/regist', req).then(response => {
       if (response.data == "duplication-error") {
         window.alert("入力されたユーザ名はすでに登録されています");
       } else {
         window.alert('ユーザーを登録しました');
+
+        window.localStorage.setItem("userName", name);
+        window.localStorage.setItem("isLogin", "true");
+
+        const path = axios.getUri({
+          url: '/mypage'
+        });
+        navigate(path);
+
         setName("");
         setPassword("");
-        setComfirmPassword("");    
+        setComfirmPassword("");   
+        window.location.reload(); 
       }
+      setDisable(false);
     });
   }
 
@@ -101,7 +116,7 @@ function RegisterBook() {
           </li>
           <li className="li-style">
             <div className="button-area">
-              <input type="button" className='btn-green btn-radius' value="登録する" onClick={submit}></input>
+              <input disabled={disable} type="button" className='btn-green btn-radius' value="登録する" onClick={submit}></input>
             </div>
           </li>
         </ul>

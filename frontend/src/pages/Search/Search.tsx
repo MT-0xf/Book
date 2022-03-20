@@ -29,7 +29,7 @@ function Search() {
   })(MuiPagination);  
 
   useEffect(() => {
-    axios.get('http://192.168.1.179:3000/books/search?keyword=' + keyword).then(
+    axios.get('http://localhost:3000/books/search?keyword=' + keyword).then(
       (response: any) => {
         setData(response.data);
       }

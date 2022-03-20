@@ -10,6 +10,7 @@ function RegisterBook() {
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const { userName, setUserName, isLogin, setIsLogin } = useContext(context);
+  const [disable, setDisable] = useState(false);
 
   const doChangeName = (e: any) => {
     setName(e.target.value);
@@ -45,12 +46,13 @@ function RegisterBook() {
       password: password,
     }
 
+    setDisable(true);
     axios.defaults.headers.post['Content-Type'] = 'application/json;charset=utf-8';
-    axios.post('http://192.168.1.179:3000/users/login', req).then(response => {
+    axios.post('http://localhost:3000/users/login', req).then(response => {
       if (response.data == "login-error") {
         window.alert("ユーザ名またはパスワードが間違っています");
       } else {
-        window.confirm('ログインしました');
+        window.alert('ログインしました');
         setUserName(name);
         setIsLogin(true);
         window.localStorage.setItem("userName", name);
@@ -65,6 +67,7 @@ function RegisterBook() {
         setPassword("");
         window.location.reload();
       }
+      setDisable(false);
     });
   }
 
@@ -88,7 +91,7 @@ function RegisterBook() {
           </li>
           <li className="li-style">
             <div className="button-area">
-              <input type="button" className='btn-green btn-radius' value="ログイン" onClick={submit}></input>
+              <input disabled={disable} type="button" className='btn-green btn-radius' value="ログイン" onClick={submit}></input>
             </div>
           </li>
         </ul>
